@@ -1,0 +1,10 @@
+﻿<input
+  nz-input placeholder="input professional skill"
+  nzSize="default"
+  style="margin-right: 10px"
+  value="{{profSkill?.summary}}"
+  (change)="onChangeData($event)"
+/>
+<button nz-button nzType="default" nzSize="default" nzShape="circle" (click)="onRemove(profSkill?.id ?? '')" >
+  <span nz-icon nzType="minus"></span>
+</button>

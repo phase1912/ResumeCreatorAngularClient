@@ -1,0 +1,145 @@
+<div>
+  <div style="display: flex; justify-content: flex-end; gap: 10px">
+    <button nz-button nzType="default" nzShape="round" routerLink="/templates">
+      <span nz-icon nzType="left"></span>
+      Go to templates
+    </button>
+    <button (click)="downloadJson()" nz-button nzType="default" nzShape="round">
+      <span nz-icon nzType="download"></span>
+      Download json
+    </button>
+    <button  nz-button nzType="default" nzShape="round">
+      Import
+      <input type="file" name="avatar" (change)="importJson($event)" />
+    </button>
+    <button nz-button nzType="default" nzShape="round" routerLink="/preview">
+      Preview
+      <span nz-icon nzType="right"></span>
+    </button>
+  </div>
+
+  <div style="display: flex; flex-direction: row;">
+    <section class="main-form" style="flex: 1">
+      <div>
+        <h4>General information</h4>
+        <div class="personal-data-form">
+          <div class="form-control">
+            <label style="display: block">Upload photo</label>
+            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" (change)="onPhotoLoaded($event)" />
+          </div>
+          <div class="form-control">
+            <label style="display: block">Title</label>
+            <input nz-input placeholder="input title" value="{{$title | async}}" nzSize="large" (input)="onTitleChanged($event)" />
+          </div>
+          <div class="form-control">
+            <label style="display: block">Email</label>
+            <input nz-input placeholder="input email" value="{{($userInformation | async)?.email}}" nzSize="default" (input)="onEmailChanged($event)" />
+          </div>
+          <div class="dual-input">
+            <div class="form-control">
+              <label style="display: block">First name</label>
+              <input nz-input placeholder="input first name" nzSize="default" value="{{($userInformation | async)?.firstName}}" (input)="onFirstNameChanged($event)" />
+            </div>
+            <div class="form-control">
+              <label style="display: block">Last name</label>
+              <input nz-input placeholder="input last name" nzSize="default" value="{{($userInformation | async)?.lastName}}" (input)="onLastNameChanged($event)" />
+            </div>
+          </div>
+          <div class="dual-input">
+            <div class="form-control">
+              <label style="display: block">Country</label>
+              <input nz-input placeholder="input country" value="{{($userInformation | async)?.country}}" nzSize="default" (input)="onCountryChanged($event)" />
+            </div>
+            <div class="form-control">
+              <label style="display: block">City</label>
+              <input nz-input placeholder="input city" value="{{($userInformation | async)?.city}}" nzSize="default" (input)="onCityChanged($event)" />
+            </div>
+          </div>
+          <div class="form-control">
+            <label style="display: block">Address</label>
+            <input nz-input placeholder="input address" value="{{($userInformation | async)?.address}}" nzSize="default" (input)="onAddressChanged($event)" />
+          </div>
+          <div class="form-control">
+            <label style="display: block">Phone</label>
+            <input nz-input placeholder="input phone" value="{{($userInformation | async)?.phone}}" nzSize="default" (input)="onPhoneChanged($event)" />
+          </div>
+          <div class="form-control">
+            <label style="display: block">Link to social network</label>
+            <input nz-input placeholder="input link" value="{{($userInformation | async)?.linkToSocialNetwork}}" nzSize="default" (input)="onSocialNetworkChanged($event)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-general">
+        <div class="add-block">
+          <h4>Education</h4>
+          <button class="button-plus-stiles" nz-button nzType="default" nzSize="default" nzShape="circle" (click)="onAddNewEducation()">
+            <span nz-icon nzType="plus"></span>
+          </button>
+        </div>
+        <div class="education-form" *ngFor="let edu of $education | async">
+          <app-education [edu]="edu"></app-education>
+        </div>
+      </div>
+
+      <div class="form-general">
+        <div class="add-block">
+          <h4>Summary</h4>
+          <button class="button-plus-stiles" nz-button nzType="default" nzSize="default" nzShape="circle"><span nz-icon nzType="plus" (click)="onAddNewSummary()"></span></button>
+        </div>
+        <div *ngIf="($summary | async)?.length ?? 0 > 0" class="summary-form">
+          <app-summary *ngFor="let s of $summary | async" [summary]="s" class="form-control" style="display: flex"></app-summary>
+        </div>
+      </div>
+
+      <div class="form-general">
+        <div class="add-block">
+          <h4>Professional skills</h4>
+          <button class="button-plus-stiles" nz-button nzType="default" nzSize="default" nzShape="circle"><span nz-icon nzType="plus" (click)="onAddNewProfSkill()"></span></button>
+        </div>
+        <div *ngIf="($profSkills | async)?.length ?? 0 > 0" class="summary-form">
+          <app-prof-skill *ngFor="let s of $profSkills | async" [profSkill]="s" class="form-control" style="display: flex"></app-prof-skill>
+        </div>
+      </div>
+
+      <div class="form-general">
+        <div class="add-block">
+          <h4>Technical skills</h4>
+          <button (click)="onAddNewTechSkill()" class="button-plus-stiles" nz-button nzType="default" nzSize="default" nzShape="circle"><span nz-icon nzType="plus"></span></button>
+        </div>
+        <div *ngIf="($techSkills | async)?.length ?? 0 > 0" class="tech-skills-form">
+          <app-tech-skills style="display: flex; align-items: flex-end; gap: 10px" *ngFor="let t of $techSkills | async" [techSkill]="t"></app-tech-skills>
+        </div>
+      </div>
+
+      <div class="form-general">
+        <div class="add-block">
+          <h4>Language skills</h4>
+          <button (click)="onAddNewLangSkill()" class="button-plus-stiles" nz-button nzType="default" nzSize="default" nzShape="circle"><span nz-icon nzType="plus"></span></button>
+        </div>
+        <div *ngIf="($langSkills | async)?.length ?? 0 > 0" class="summary-form">
+          <app-lang-skill *ngFor="let s of $langSkills | async" [langSkill]="s" class="form-control" style="display: flex; gap: 10px"></app-lang-skill>
+        </div>
+      </div>
+
+      <div class="form-general">
+        <div class="add-block">
+          <h4>Professional experience</h4>
+          <button (click)="onAddNewWorkExperience()" class="button-plus-stiles" nz-button nzType="default" nzSize="default" nzShape="circle">
+            <span nz-icon nzType="plus"></span>
+          </button>
+        </div>
+        <div class="education-form" *ngFor="let w of $workExperience | async">
+          <app-work-experience [workExperience]="w"></app-work-experience>
+        </div>
+      </div>
+    </section>
+
+    <section style="flex: 1">
+      <default-template *ngIf="!($currentTemplateName | async) || ($currentTemplateName | async) === 'default'" class="d-flex" style="flex-direction: column; flex: 1; margin: 10px"/>
+      <simple-template *ngIf="($currentTemplateName | async) === 'simple'" class="d-flex" style="flex-direction: column; flex: 1; margin: 10px"/>
+    </section>
+  </div>
+</div>
+
+

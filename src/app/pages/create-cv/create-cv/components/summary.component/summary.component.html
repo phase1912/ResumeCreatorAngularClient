@@ -1,0 +1,10 @@
+﻿<input
+  nz-input placeholder="input summary"
+  nzSize="default"
+  style="margin-right: 10px"
+  value="{{summary?.summary}}"
+  (change)="onChangeData($event)"
+/>
+<button nz-button nzType="default" nzSize="default" nzShape="circle" (click)="onRemoveSummary(summary?.id ?? '')" >
+  <span nz-icon nzType="minus"></span>
+</button>

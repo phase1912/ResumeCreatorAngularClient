@@ -1,0 +1,159 @@
+﻿<div style="display: flex; flex-direction: column; align-items: center">
+  <div style="text-align: center; display: flex; gap: 10px; align-items: center">
+    <h1 style="margin: 0">{{($userInformation | async)?.firstName}} {{($userInformation | async)?.lastName}} </h1>
+<!--    <h4 style="margin: 0; text-wrap: avoid">({{$title | async}})</h4>-->
+  </div>
+  <div style="text-align: center; display: flex; gap: 2px; align-items: center">
+    <div>{{($userInformation | async)?.phone}}</div>
+    <b>|</b>
+    <div>{{($userInformation | async)?.email}}</div>
+    <b>|</b>
+    <div>{{($userInformation | async)?.country}}, {{($userInformation | async)?.city}}</div>
+    <b>|</b>
+    <div>{{($userInformation | async)?.linkToSocialNetwork}}</div>
+  </div>
+</div>
+
+<h2 class="form-general">Education</h2>
+<div style="border-top: 2px solid #f0f0f0; display: flex; flex-direction: column; gap:10px">
+  <div *ngFor="let edu of $education | async">
+    <div style="display: flex; justify-content: space-between">
+      <h3>{{edu.name}}</h3>
+      <div>{{edu.faculty}}</div>
+    </div>
+    <div style="display: flex; justify-content: space-between">
+      <i>
+        {{edu.qualification}}
+      </i>
+      <i>{{getMothNameWithYear(edu.startDate)}} - {{getMothNameWithYear(edu.endDate, true)}}</i>
+    </div>
+  </div>
+</div>
+
+<h2 style="margin-top: 10px">Work experience</h2>
+<div style="border-top: 2px solid #f0f0f0; display: flex; flex-direction: column; gap:10px">
+  <div *ngFor="let w of $workExperience | async">
+    <div style="display: flex; justify-content: space-between">
+      <h3>{{w.position}}</h3>
+      <div>{{getMothNameWithYear(w.startDate)}} - {{getMothNameWithYear(w.endDate, true)}}</div>
+    </div>
+    <div style="display: flex; justify-content: space-between">
+      <i>
+        {{w.companyName}}
+      </i>
+      <i>{{w.country}}, {{w.city}}</i>
+    </div>
+
+    <div style="margin-left: 20px; margin-right: 20px">
+      <h3>Projects</h3>
+      <div style="border-top: 2px solid #f0f0f0; display: flex; flex-direction: column; gap:10px">
+        <div *ngFor="let p of w.projects">
+          <div style="display: flex; justify-content: space-between">
+            <div style="display: flex; gap:5px;margin-top:5px">
+              <h3 style="border-right: 1px solid #f0f0f0;padding-right: 5px">{{p.projectName}}</h3>
+              <div>
+                <i style="font-size: 8pt" *ngFor="let s of p.toolsAndTechnologies, let i = index, let l = last">{{s.summary}}{{!l ? ',':''}}</i>
+              </div>
+            </div>
+
+            <div>{{getMothNameWithYear(p.startDate)}} - {{getMothNameWithYear(p.endDate, true)}}</div>
+          </div>
+          <ul>
+            <li *ngFor="let r of p.responsibilities">{{r.summary}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 style="margin-top: 10px">Technical skills</h2>
+<div style="border-top: 2px solid #f0f0f0; display: flex; flex-direction: column; gap:10px">
+  <table style="width:100%; border: 0">
+    <tr style="text-align: left;">
+      <th style="font-weight: 500;vertical-align:baseline">Languages:</th>
+      <td style="display: flex;gap: 5px;flex-wrap: wrap;border-bottom: 1px solid #f0f0f0;padding: 5px">
+        <div *ngFor="let t of ($techSkills | async) ?? [] | filterPipe: filterLanguages, let i = index, let l = last">
+          {{t.summary}}{{!l ? ',':''}}
+        </div>
+      </td>
+    </tr>
+    <tr style="text-align: left">
+      <th style="font-weight: 500;vertical-align:baseline">Frameworks/Technologies:</th>
+      <td style="display: flex;gap: 5px; flex-wrap: wrap;border-bottom: 1px solid #f0f0f0;padding: 5px">
+        <div  style="text-wrap: avoid; flex-wrap: nowrap"
+              *ngFor="let t of ($techSkills | async) ?? [] | filterPipe: filterTech, let i = index, let l = last">
+          {{t.summary}}{{!l ? ',':''}}
+        </div>
+      </td>
+    </tr>
+    <tr style="text-align: left">
+      <th style="font-weight: 500;vertical-align:baseline">Tools:</th>
+      <td style="display: flex;gap: 5px; flex-wrap: wrap;border-bottom: 1px solid #f0f0f0;padding: 5px">
+        <div style="text-wrap: avoid; flex-wrap: nowrap" *ngFor="let t of ($techSkills | async) ?? [] | filterPipe: filterTools, let i = index, let l = last">
+          {{t.summary}}{{!l ? ',':''}}
+        </div>
+      </td>
+    </tr>
+    <tr style="text-align: left">
+      <th style="font-weight: 500;vertical-align:baseline">Libraries:</th>
+      <td style="display: flex;gap: 5px; flex-wrap: wrap;border-bottom: 1px solid #f0f0f0;padding: 5px">
+        <div style="text-wrap: avoid; flex-wrap: nowrap" *ngFor="let t of ($techSkills | async) ?? [] | filterPipe: filterLibs, let i = index, let l = last">
+          {{t.summary}}{{!l ? ',':''}}
+        </div>
+      </td>
+    </tr>
+    <tr style="text-align: left">
+      <th style="font-weight: 500;vertical-align:baseline">Spoken languages:</th>
+      <td style="display: flex;gap: 5px; flex-wrap: wrap;padding: 5px">
+        <div style="text-wrap: avoid; flex-wrap: nowrap" *ngFor="let t of $langSkills | async, let i = index, let l = last">
+          {{t.summary}} - {{t.level}}{{!l ? ',':''}}
+        </div>
+      </td>
+    </tr>
+  </table>
+<!--  <div style="display: flex; gap:5px; flex-wrap: wrap">-->
+<!--    <h4 style="margin: 0">Languages:</h4>-->
+<!--    <div-->
+<!--      *ngFor="let t of ($techSkills | async) ?? [] | filterPipe: filterLanguages, let i = index, let l = last"-->
+<!--    >-->
+<!--      {{t.summary}}{{!l ? ',':''}}</div>-->
+<!--  </div>-->
+<!--  <div style="display: flex; gap:5px; flex-wrap: nowrap">-->
+<!--    <h4 style="margin: 0">Frameworks/Technologies:</h4>-->
+<!--    <div style="display: flex;text-wrap: avoid;gap: 5px;flex-direction: row;flex-wrap: wrap;justify-content: flex-start;">-->
+<!--      <div-->
+<!--        style="text-wrap: avoid"-->
+<!--        *ngFor="let t of ($techSkills | async) ?? [] | filterPipe: filterTech, let i = index, let l = last"-->
+<!--      >{{t.summary}}{{!l ? ',':''}}-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--  <div style="display: flex; gap:5px; flex-wrap: nowrap">-->
+<!--    <h4 style="margin: 0">Tools:</h4>-->
+<!--    <div style="display: flex;text-wrap: avoid;gap: 5px;flex-direction: row;flex-wrap: wrap;justify-content: flex-start;">-->
+<!--      <div *ngFor="let t of ($techSkills | async) ?? [] | filterPipe: filterTools, let i = index, let l = last">{{t.summary}}{{!l ? ',':''}}</div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div style="display: flex; gap:5px; flex-wrap: wrap">-->
+<!--    <h4 style="margin: 0">Libraries:</h4>-->
+<!--    <div *ngFor="let t of ($techSkills | async) ?? [] | filterPipe: filterLibs, let i = index, let l = last">{{t.summary}}{{!l ? ',':''}}</div>-->
+<!--  </div>-->
+<!--  <div style="display: flex; gap:5px; flex-wrap: wrap">-->
+<!--    <h4 style="margin: 0">Spoken languages:</h4>-->
+<!--    <div *ngFor="let t of $langSkills | async, let i = index, let l = last">{{t.summary}} - {{t.level}}{{!l ? ',':''}}-->
+<!--    </div>-->
+<!--  </div>-->
+</div>
+<h2 style="margin-top: 10px">Summary</h2>
+<div style="border-top: 2px solid #f0f0f0; display: flex; flex-direction: column; gap:10px">
+  <div *ngFor="let s of ($summary | async)" style="display: flex;align-items: center;">
+    <span  nz-icon nzType="minus" nzTheme="outline"></span>
+    <div style="margin-left: 10px">{{s.summary}}</div>
+  </div>
+  <div *ngFor="let s of ($profSkills | async)" style="display: flex;align-items: center;">
+    <span  nz-icon nzType="minus" nzTheme="outline"></span>
+    <div style="margin-left: 10px">{{s.summary}}</div>
+  </div>
+</div>

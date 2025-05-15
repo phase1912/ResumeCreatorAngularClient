@@ -1,0 +1,16 @@
+﻿<div style="display: flex; justify-content: flex-end; gap: 10px">
+  <button routerLink="/create-cv" nz-button nzType="default" nzShape="round">
+    <span nz-icon nzType="left"></span>
+    Back
+  </button>
+  <button nz-button nzType="default" nzShape="round" (click)="saveToPdf()">
+    <span nz-icon nzType="download"></span>
+    Download
+  </button>
+</div>
+
+<div style="display: flex; justify-content: center">
+  <default-template *ngIf="!($currentTemplateName | async) || ($currentTemplateName | async) === 'default'" style="width: 900px; display: block"  id="dataToExport" #dataToExport></default-template>
+  <simple-template *ngIf="($currentTemplateName | async) === 'simple'" style="width: 900px; display: block"  id="dataToExport" #dataToExport></simple-template>
+</div>
+

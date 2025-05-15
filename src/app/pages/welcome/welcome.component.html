@@ -1,0 +1,26 @@
+<section>
+  <h4>Templates</h4>
+
+  <div style="display: flex; justify-content: flex-end; gap: 10px">
+    <button nz-button nzType="default" nzShape="round" routerLink="/create-cv">
+      Go to create cv page
+      <span nz-icon nzType="right"></span>
+    </button>
+  </div>
+
+  <div style="display: flex; margin-top: 30px; gap:10px">
+    <nz-card style="width:300px;" nzTitle="Default template" [nzExtra]="extraTemplate1">
+      <p *ngIf="!($currentTemplateName | async) || ($currentTemplateName | async) === 'default'">Selected  <span nz-icon nzType="check" nzTheme="outline"></span></p>
+    </nz-card>
+    <ng-template #extraTemplate1>
+      <a (click)="onTemplateChanged('default')">Select</a>
+    </ng-template>
+
+    <nz-card style="width:300px;" nzTitle="Simple template" [nzExtra]="extraTemplate2">
+      <p *ngIf="($currentTemplateName | async) === 'simple'">Selected  <span nz-icon nzType="check" nzTheme="outline"></span></p>
+    </nz-card>
+    <ng-template #extraTemplate2>
+      <a (click)="onTemplateChanged('simple')">Select</a>
+    </ng-template>
+  </div>
+</section>

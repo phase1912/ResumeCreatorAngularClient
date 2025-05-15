@@ -1,0 +1,165 @@
+﻿<div class="add-block">
+  <h4></h4>
+  <button
+    nz-button nzType="default"
+    nzSize="default"
+    nzShape="circle"
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure delete this item?"
+    (nzOnConfirm)="confirm(workExperience?.id ?? '')"
+    (nzOnCancel)="cancel()"
+    nzPopconfirmPlacement="leftTop"
+  >
+    <span nz-icon nzType="minus"></span>
+  </button>
+</div>
+<div>
+  <label style="display: block">Company name</label>
+  <input nz-input placeholder="input company name" nzSize="default" value="{{workExperience?.companyName}}" (change)="onNameChangeString($event, 'companyName')" />
+</div>
+
+<div>
+  <label style="display: block">Position</label>
+  <input nz-input placeholder="input company name" nzSize="default" value="{{workExperience?.position}}" (change)="onNameChangeString($event, 'position')" />
+</div>
+
+<div style="display: flex; flex-direction: row;">
+  <div class="form-control">
+    <label style="display: block">Start date</label>
+    <nz-date-picker [(ngModel)]="workExperience?.startDate ?? startDate" (ngModelChange)="onChangeDate($event, 'startDate')"></nz-date-picker>
+  </div>
+  <div class="form-control">
+    <label style="display: block">End date</label>
+    <nz-date-picker [(ngModel)]="workExperience?.endDate ?? endDate" (ngModelChange)="onChangeDate($event, 'endDate')"></nz-date-picker>
+  </div>
+</div>
+
+<div style="display: flex; flex-direction: row;">
+  <div class="form-control">
+    <label style="display: block">City</label>
+    <input nz-input placeholder="input country" nzSize="default" value="{{workExperience?.country}}" (change)="onNameChangeString($event, 'country')" />
+  </div>
+  <div class="form-control">
+    <label style="display: block">Country</label>
+    <input nz-input placeholder="input city" nzSize="default" value="{{workExperience?.city}}" (change)="onNameChangeString($event, 'city')" />
+  </div>
+</div>
+
+<div style="margin-top: 10px" class="add-block">
+  <h5>Projects</h5>
+  <button (click)="onAddNewProjectExperience()" class="button-plus-stiles" nz-button nzType="default" nzSize="default" nzShape="circle">
+    <span nz-icon nzType="plus"></span>
+  </button>
+</div>
+
+<div style="display: flex; gap: 10px; flex-direction: column">
+  <div style="border-bottom: 1px solid #f0f0f0;" *ngFor="let project of workExperience?.projects">
+    <div class="add-block">
+      <h4></h4>
+      <button
+        nz-button nzType="default"
+        nzSize="default"
+        nzShape="circle"
+        nz-popconfirm
+        nzPopconfirmTitle="Are you sure delete this item?"
+        (nzOnConfirm)="confirmDeleteProject(project?.id ?? '')"
+        (nzOnCancel)="cancel()"
+        nzPopconfirmPlacement="leftTop"
+      >
+        <span nz-icon nzType="minus"></span>
+      </button>
+    </div>
+
+    <div class="dual-input">
+      <div class="form-control">
+        <label style="display: block">Name</label>
+        <input (change)="changeProjectData(project.id ?? '', 'projectName', $event)" value="{{project.projectName}}" nz-input placeholder="input name" nzSize="default"  />
+      </div>
+      <div class="form-control">
+        <label style="display: block">Industry</label>
+        <input (change)="changeProjectData(project.id ?? '', 'industry', $event)" value="{{project.industry}}" nz-input placeholder="input industry" nzSize="default"  />
+      </div>
+    </div>
+
+    <div class="dual-input">
+      <div class="form-control">
+        <label style="display: block">Start date</label>
+        <nz-date-picker [(ngModel)]="project?.startDate ?? startDate" (ngModelChange)="changeProjectDataDate(project.id ?? '', 'startDate', $event)"></nz-date-picker>
+      </div>
+      <div class="form-control">
+        <label style="display: block">End date</label>
+        <nz-date-picker [(ngModel)]="project?.endDate ?? startDate" (ngModelChange)="changeProjectDataDate(project.id ?? '', 'endDate', $event)"></nz-date-picker>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label style="display: block">Description</label>
+      <input (change)="changeProjectData(project.id ?? '', 'description', $event)" value="{{project.description}}" nz-input placeholder="input description" nzSize="default"  />
+    </div>
+
+    <div class="dual-input">
+      <div class="form-control">
+        <label style="display: block">Position</label>
+        <input (change)="changeProjectData(project.id ?? '', 'position', $event)" value="{{project.position}}" nz-input placeholder="input position" nzSize="default"  />
+      </div>
+      <div class="form-control">
+        <label style="display: block">Team description</label>
+        <input (change)="changeProjectData(project.id ?? '', 'teamSize', $event)" value="{{project.teamSize}}" nz-input placeholder="input team" nzSize="default"  />
+      </div>
+    </div>
+
+    <div class="form-control">
+      <div class="add-block">
+        <h4>Responsibilities</h4>
+        <button
+          nz-button nzType="default"
+          nzSize="default"
+          nzShape="circle"
+          (click)="addNewResp(project.id ?? '')"
+        >
+          <span nz-icon nzType="plus"></span>
+        </button>
+      </div>
+
+      <div *ngFor="let rest of project?.responsibilities" style="display: flex; margin-bottom: 5px">
+        <input
+          nz-input placeholder="input responsibility"
+          nzSize="default"
+          style="margin-right: 10px"
+          value="{{rest?.summary}}"
+          (change)="respDataChanged(rest.id ?? '', project.id ?? '', 'summary', $event)"
+        />
+        <button nz-button nzType="default" nzSize="default" nzShape="circle" (click)="removeResp(rest.id ?? '', project.id ?? '')" >
+          <span nz-icon nzType="minus"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <div class="add-block">
+        <h4>Tool&Technologies</h4>
+        <button
+          nz-button nzType="default"
+          nzSize="default"
+          nzShape="circle"
+          (click)="addNewTech(project.id ?? '')"
+        >
+          <span nz-icon nzType="plus"></span>
+        </button>
+      </div>
+
+      <div *ngFor="let t of project?.toolsAndTechnologies" style="display: flex; margin-bottom: 5px">
+        <input
+          nz-input placeholder="input technology"
+          nzSize="default"
+          style="margin-right: 10px"
+          value="{{t?.summary}}"
+          (change)="techDataChanged(t.id ?? '', project.id ?? '', 'summary', $event)"
+        />
+        <button nz-button nzType="default" nzSize="default" nzShape="circle" (click)="removeTech(t.id ?? '', project.id ?? '')" >
+          <span nz-icon nzType="minus"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

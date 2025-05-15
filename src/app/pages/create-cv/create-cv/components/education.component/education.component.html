@@ -1,0 +1,39 @@
+﻿<div class="add-block">
+  <h4></h4>
+  <button
+    nz-button nzType="default"
+    nzSize="default"
+    nzShape="circle"
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure delete this item?"
+    (nzOnConfirm)="confirm(edu?.id ?? '')"
+    (nzOnCancel)="cancel()"
+    nzPopconfirmPlacement="leftTop"
+  >
+    <span nz-icon nzType="minus"></span>
+  </button>
+</div>
+<div>
+  <label style="display: block">Name</label>
+  <input nz-input placeholder="input name" nzSize="default" value="{{edu?.name}}" (change)="onNameChangeString($event, 'name')" />
+</div>
+<div class="dual-input">
+  <div class="form-control">
+    <label style="display: block">Faculty</label>
+    <input nz-input placeholder="input faculty" nzSize="default" value="{{edu?.faculty}}" (change)="onNameChangeString($event, 'faculty')" />
+  </div>
+  <div class="form-control">
+    <label style="display: block">Qualification</label>
+    <input nz-input placeholder="input qualification" nzSize="default" value="{{edu?.qualification}}" (change)="onNameChangeString($event, 'qualification')" />
+  </div>
+</div>
+<div style="display: flex; flex-direction: row;">
+  <div class="form-control">
+    <label style="display: block">Start date</label>
+    <nz-date-picker [(ngModel)]="edu?.startDate ?? startDate" (ngModelChange)="onChangeDate($event, 'startDate')"></nz-date-picker>
+  </div>
+  <div class="form-control">
+    <label style="display: block">End date</label>
+    <nz-date-picker [(ngModel)]="edu?.endDate ?? endDate" (ngModelChange)="onChangeDate($event, 'endDate')"></nz-date-picker>
+  </div>
+</div>

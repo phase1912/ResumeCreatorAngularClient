@@ -1,0 +1,18 @@
+﻿<div style="display: flex; gap: 10px; flex-direction: column;">
+  <input
+    nz-input placeholder="input summary"
+    nzSize="default"
+    style="margin-right: 10px"
+    value="{{langSkill?.summary}}"
+    (change)="onChangeSummary($event)"
+  />
+  <nz-radio-group [(ngModel)]="langSkill?.level ?? radioValue" (ngModelChange)="onChangePercentage($event)" nzButtonStyle="solid">
+    <label nz-radio nzValue="{{LanguageLevelModel.PreIntermediate}}">{{LanguageLevelModel.PreIntermediate}}</label>
+    <label nz-radio nzValue="{{LanguageLevelModel.Intermediate}}">{{LanguageLevelModel.Intermediate}}</label>
+    <label nz-radio nzValue="{{LanguageLevelModel.UpperIntermediate}}">{{LanguageLevelModel.UpperIntermediate}}</label>
+    <label nz-radio nzValue="{{LanguageLevelModel.Advanced}}">{{LanguageLevelModel.Advanced}}</label>
+  </nz-radio-group>
+</div>
+<button nz-button nzType="default" nzSize="default" nzShape="circle" (click)="onRemove(langSkill?.id ?? '')" >
+  <span nz-icon nzType="minus"></span>
+</button>

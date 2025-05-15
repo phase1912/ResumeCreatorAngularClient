@@ -1,0 +1,22 @@
+﻿<div style="display: flex; align-items: flex-end;width: 100%">
+  <div class="dual-input">
+    <div class="form-control">
+      <label style="display: block">Skill</label>
+      <input nz-input placeholder="input skill" nzSize="default" value="{{techSkill?.summary}}" (change)="onChangeSummary($event)" />
+    </div>
+    <div class="form-control">
+      <label style="display: block">Level in %</label>
+      <input type="number" min="0" max="100" nz-input placeholder="input level" nzSize="default" value="{{techSkill?.levelPercentage}}" (change)="onChangePercentage($event)" />
+    </div>
+  </div>
+  <nz-select style="margin-bottom: 2px" (ngModelChange)="onChangeType($event)" ngModel="{{techSkill?.type ?? 'select type'}}">
+    <nz-option nzValue="{{ProfSkillType.frameworkTechnology}}" nzLabel="{{ProfSkillType.frameworkTechnology}}"></nz-option>
+    <nz-option nzValue="{{ProfSkillType.programmingLanguage}}" nzLabel="{{ProfSkillType.programmingLanguage}}"></nz-option>
+    <nz-option nzValue="{{ProfSkillType.devTool}}" nzLabel="{{ProfSkillType.devTool}}"></nz-option>
+    <nz-option nzValue="{{ProfSkillType.library}}" nzLabel="{{ProfSkillType.library}}"></nz-option>
+  </nz-select>
+</div>
+
+<button nz-button nzType="default" nzSize="default" nzShape="circle" (click)="onRemove(techSkill?.id ?? '')" >
+  <span nz-icon nzType="minus"></span>
+</button>

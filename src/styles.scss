@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+.d-flex {
+  display: flex;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.form-general {
+  margin-top: 30px;
+  //page-break-after: auto;
+  //page-break-after: right;
+  page-break-before: auto;
+
+  //@media print {
+  //  //page-break-before: always;
+  //  page-break-after: always;
+  //
+  //  //h3, h4 {
+  //  //  page-break-after: avoid;
+  //  //}
+  //  //pre, blockquote {
+  //  //  page-break-inside: avoid;
+  //  //}
+  //}
+}
+
+.dual-input {
+  display: flex; flex-direction: row
+}
+
+.add-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-control {
+  margin: 2px;
+  width: 100%;
+}

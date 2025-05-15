@@ -1,0 +1,274 @@
+﻿<h3>{{$title | async}}</h3>
+
+<div style="display: flex; gap: 10px">
+  <div class="d-flex user-description" style="flex: 1 1 0">
+    <div class="p-10">
+      <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+        <nz-card-meta nzTitle="{{($userInformation | async)?.firstName}} {{($userInformation | async)?.lastName}}" nzDescription="{{$title | async}}"></nz-card-meta>
+      </nz-card>
+      <ng-template #coverTemplate>
+        <img alt="example" src="{{($userInformation | async)?.photo ?? 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'}}" />
+      </ng-template>
+    </div>
+    <div class="d-flex p-10" style="flex-direction: column">
+      <div class="dual-input">
+        <h4>Email:</h4>
+        <p style="margin-left: 10px;">{{($userInformation | async)?.email}}</p>
+      </div>
+      <div class="dual-input">
+        <div class="dual-input">
+          <h4>Country:</h4>
+          <p style="margin-left: 10px;">{{($userInformation | async)?.country}}</p>
+        </div>
+        <div class="dual-input">
+          <h4 style="margin-left: 10px;">City:</h4>
+          <p style="margin-left: 10px;">{{($userInformation | async)?.city}}</p>
+        </div>
+      </div>
+<!--      <div class="dual-input">-->
+<!--        <h4>Address:</h4>-->
+<!--        <p style="margin-left: 10px;">{{($userInformation | async)?.country}}</p>-->
+<!--      </div>-->
+<!--      <div class="dual-input">-->
+<!--        <div class="dual-input">-->
+<!--          <h4>Address2:</h4>-->
+<!--          <p style="margin-left: 10px;">{{($userInformation | async)?.country}}</p>-->
+<!--        </div>-->
+<!--        <div class="dual-input">-->
+<!--          <h4 style="margin-left: 10px;">ZIP:</h4>-->
+<!--          <p style="margin-left: 10px;">{{($userInformation | async)?.country}}</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="dual-input">-->
+<!--        <h4>Website:</h4>-->
+<!--        <p style="margin-left: 10px;">{{($userInformation | async)?.country}}</p>-->
+<!--      </div>-->
+<!--      <div class="dual-input">-->
+<!--        <h4>Link to social network:</h4>-->
+<!--        <p style="margin-left: 10px;">{{($userInformation | async)?.country}}</p>-->
+<!--      </div>-->
+      <div class="dual-input">
+        <h4>Phone:</h4>
+        <p style="margin-left: 10px;">{{($userInformation | async)?.phone}}</p>
+      </div>
+      <div class="dual-input">
+        <h4>Link to social network:</h4>
+        <p style="margin-left: 10px;">{{($userInformation | async)?.linkToSocialNetwork}}</p>
+      </div>
+      <!--        <div>-->
+      <!--          <nz-descriptions nzTitle="User Info">-->
+      <!--            <nz-descriptions-item nzTitle="UserName">Zhou Maomao</nz-descriptions-item>-->
+      <!--            <nz-descriptions-item nzTitle="Telephone">18100000000</nz-descriptions-item>-->
+      <!--            <nz-descriptions-item nzTitle="Live">{{userInformation?.country}}</nz-descriptions-item>-->
+      <!--            <nz-descriptions-item nzTitle="Remark">Empty</nz-descriptions-item>-->
+      <!--            <nz-descriptions-item nzTitle="Address">-->
+      <!--              No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China-->
+      <!--            </nz-descriptions-item>-->
+      <!--          </nz-descriptions>-->
+      <!--        </div>-->
+    </div>
+  </div>
+
+
+
+</div>
+
+<div class="form-general">
+  <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%">
+    <div style="display: flex;flex-wrap: wrap;">
+      <div style="border: 1px solid #f0f0f0; border-radius: 10px 10px 10px 10px;padding: 10px;">
+        <h4 style="border-bottom: 1px solid #f0f0f0;">Summary</h4>
+        <div *ngFor="let s of ($summary | async)" style="display: flex;align-items: center;">
+          <span  nz-icon nzType="minus" nzTheme="outline"></span>
+          <div style="margin-left: 10px">{{s.summary}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="form-general">
+  <div style="border: 1px solid #f0f0f0; border-radius: 10px 10px 10px 10px;padding: 10px;margin-bottom: 10px;margin-right: 10px; width: 100%">
+    <h4 style="border-bottom: 1px solid #f0f0f0;">Professional skills</h4>
+    <div *ngFor="let s of ($profSkills | async)" style="display: flex;align-items: center;">
+      <span  nz-icon nzType="minus" nzTheme="outline"></span>
+      <div style="margin-left: 10px">{{s.summary}}</div>
+    </div>
+  </div>
+</div>
+
+<div class="form-general">
+  <div style="border: 1px solid #f0f0f0; border-radius: 10px 10px 10px 10px;padding: 10px;margin-bottom: 10px;margin-right: 10px; width: 100%">
+    <h4 style="border-bottom: 1px solid #f0f0f0;">Technical skills</h4>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px">
+      <div *ngFor="let s of ($techSkills | async)" style="display: flex;align-items: center; justify-content: space-between;flex-wrap: wrap">
+<!--        <span  nz-icon nzType="minus" nzTheme="outline"></span>-->
+        <div style="display: flex; gap: 5px; flex-wrap: nowrap">
+          <div style="margin-left: 10px">{{s.summary}}</div>
+          <nz-progress [nzPercent]="s.levelPercentage" [nzSteps]="5" nzStrokeColor="#1890ff"></nz-progress>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-general" style="page-break-before: always">
+  <div style="border: 1px solid #f0f0f0; border-radius: 10px 10px 10px 10px;padding: 10px;margin-bottom: 10px;margin-right: 10px">
+    <h4 style="border-bottom: 1px solid #f0f0f0;">Language skills</h4>
+    <div *ngFor="let s of ($langSkills | async)" style="display: flex;align-items: center; justify-content: left;flex-wrap: wrap">
+      <span  nz-icon nzType="minus" nzTheme="outline"></span>
+      <div style="display: flex; gap: 5px; flex-wrap: wrap">
+        <div style="margin-left: 10px">{{s.summary}}</div>
+        <div style="display: flex; gap: 5px; flex-wrap: wrap">
+          <span style="font-style: italic">{{s.level}}</span>
+          <nz-progress [nzPercent]="calculateLangPercentage(s.level ?? '')" [nzSteps]="4" [nzShowInfo]="false" nzStrokeColor="#1890ff"></nz-progress>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-general">
+  <h4>Education</h4>
+  <div *ngFor="let edu of ($education | async)" style="border: 1px solid #f0f0f0; border-radius: 10px 10px 10px 10px;padding: 10px; margin-bottom: 20px">
+    <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center">
+      <h4 style="flex: 1">{{edu.name}}</h4>
+      <div style="border-left: 1px solid #f0f0f0;display: flex; flex-direction: column; padding: 20px; flex: 2">
+        <table>
+          <tr>
+            <th style="text-align: left">Faculty:</th>
+            <td style="border-bottom: 1px solid #f0f0f0; text-align: center">{{edu.faculty}}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left;padding-top: 20px">
+              Qualification:
+            </th>
+            <td style="border-bottom: 1px solid #f0f0f0; text-align: center; padding-top: 20px">{{edu.qualification}}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding-right: 20px;padding-top: 20px">
+              Graduated at:
+            </th>
+            <td style="text-align: center; padding-top: 20px">{{trimDate(edu.endDate)}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-general">
+<!--  <div style="display: flex;flex-wrap: wrap;">-->
+<!--    <div style="border: 1px solid #f0f0f0; border-radius: 10px 10px 10px 10px;padding: 10px;margin-bottom: 10px;margin-right: 10px;">-->
+<!--      <h4 style="border-bottom: 1px solid #f0f0f0;">Summary</h4>-->
+<!--      <div *ngFor="let s of ($summary | async)" style="display: flex;align-items: center;">-->
+<!--        <span  nz-icon nzType="minus" nzTheme="outline"></span>-->
+<!--        <div style="margin-left: 10px">{{s.summary}}</div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div style="border: 1px solid #f0f0f0; border-radius: 10px 10px 10px 10px;padding: 10px;margin-bottom: 10px;margin-right: 10px">-->
+<!--      <h4 style="border-bottom: 1px solid #f0f0f0;">Professional skills</h4>-->
+<!--      <div *ngFor="let s of ($profSkills | async)" style="display: flex;align-items: center;">-->
+<!--        <span  nz-icon nzType="minus" nzTheme="outline"></span>-->
+<!--        <div style="margin-left: 10px">{{s.summary}}</div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div style="border: 1px solid #f0f0f0; border-radius: 10px 10px 10px 10px;padding: 10px;margin-bottom: 10px;margin-right: 10px">-->
+<!--      <h4 style="border-bottom: 1px solid #f0f0f0;">Technical skills</h4>-->
+<!--      <div *ngFor="let s of ($techSkills | async)" style="display: flex;align-items: center; justify-content: space-between;flex-wrap: wrap">-->
+<!--        <span  nz-icon nzType="minus" nzTheme="outline"></span>-->
+<!--        <div style="display: flex; gap: 5px; flex-wrap: wrap">-->
+<!--          <div style="margin-left: 10px">{{s.summary}}</div>-->
+<!--          <nz-progress [nzPercent]="s.levelPercentage" [nzSteps]="5" nzStrokeColor="#1890ff"></nz-progress>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div style="border: 1px solid #f0f0f0; border-radius: 10px 10px 10px 10px;padding: 10px;margin-bottom: 10px;margin-right: 10px">-->
+<!--      <h4 style="border-bottom: 1px solid #f0f0f0;">Language skills</h4>-->
+<!--      <div *ngFor="let s of ($langSkills | async)" style="display: flex;align-items: center; justify-content: space-between;flex-wrap: wrap">-->
+<!--        <span  nz-icon nzType="minus" nzTheme="outline"></span>-->
+<!--        <div style="display: flex; gap: 5px; flex-wrap: wrap">-->
+<!--          <div style="margin-left: 10px">{{s.summary}}</div>-->
+<!--          <div style="display: flex; gap: 5px; flex-wrap: wrap">-->
+<!--            <span style="font-style: italic">{{s.level}}</span>-->
+<!--            <nz-progress [nzPercent]="calculateLangPercentage(s.level ?? '')" [nzSteps]="4" [nzShowInfo]="false" nzStrokeColor="#1890ff"></nz-progress>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="form-general" style="page-break-before: always">
+    <h4>Work experience</h4>
+    <div *ngFor="let w of ($workExperience | async)" style="border: 1px solid #f0f0f0; border-radius: 10px 10px 10px 10px;padding: 10px; margin-bottom: 20px">
+      <div style="display: flex; flex-direction: column">
+        <h4>{{w.companyName}}</h4>
+        <div style="border-bottom: 1px solid #f0f0f0;">from {{getMothNameWithYear(w.startDate)}} to {{getMothNameWithYear(w.endDate)}} ({{getDifferenceInDates(w.startDate, w.endDate)}})</div>
+        <h4 style="text-align: center">Projects:</h4>
+      </div>
+
+      <div style="display: flex; justify-content: space-around; align-items: center; flex-direction: column; gap: 10px">
+        <div *ngFor="let project of w.projects, let i = index" style="border: 1px solid #f0f0f0;border-radius: 10px 10px 10px 10px;padding: 10px;width: 100%">
+          <table  style="width: 100%; ">
+            <tr>
+              <th style="text-align: left">Name:</th>
+              <td style="border-bottom: 1px solid #f0f0f0; text-align: right">{{project.projectName}}</td>
+            </tr>
+            <tr>
+              <th style="text-align: left;padding-top: 20px">
+                Industry:
+              </th>
+              <td style="border-bottom: 1px solid #f0f0f0; text-align: right; padding-top: 20px">{{project.industry}}</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding-right: 20px;padding-top: 20px">
+                Description:
+              </th>
+              <td style="border-bottom: 1px solid #f0f0f0;text-align: left; padding-top: 20px;">{{project.description}}</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding-right: 20px;padding-top: 20px">
+                Position:
+              </th>
+              <td style="border-bottom: 1px solid #f0f0f0;text-align: right; padding-top: 20px">{{project.position}}</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding-right: 20px;padding-top: 20px">
+                Overall team size:
+              </th>
+              <td style="border-bottom: 1px solid #f0f0f0;text-align: right; padding-top: 20px">{{project.teamSize}}</td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding-right: 20px;padding-top: 20px">
+                Responsibilities:
+              </th>
+              <td style="border-bottom: 1px solid #f0f0f0;text-align: right; padding-top: 20px">
+                <div *ngFor="let r of project.responsibilities" style="display: flex;align-items: center; justify-content: flex-start">
+                  <span  nz-icon nzType="minus" nzTheme="outline"></span>
+                  <div style="margin-left: 10px; text-align: left;">{{r.summary}}</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th style="text-align: left; padding-right: 20px;padding-top: 20px">
+                Tools & technologies:
+              </th>
+              <td style="text-align: right; padding-top: 20px; display: flex; flex-wrap: wrap; gap:15px">
+                <div *ngFor="let r of project.toolsAndTechnologies" style="display: flex;align-items: center; justify-content: flex-start">
+<!--                  <span  nz-icon nzType="minus" nzTheme="outline"></span>-->
+                  <div>{{r.summary}}</div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
